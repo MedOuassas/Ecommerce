@@ -121,4 +121,6 @@ return[
     'sizes' => 'Sizes',
     'size' => 'Size',
     'public' => 'Public',
+    'weight' => 'Weight',
+    'weights' => 'Weights',
 ];

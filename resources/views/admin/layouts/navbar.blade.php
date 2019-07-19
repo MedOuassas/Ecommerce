@@ -190,6 +190,18 @@
             <li><a href="{{ aurl('sizes/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
           </ul>
         </li>
+        <li class="treeview {{ active_menu('weights')[0] }}">
+          <a href="#">
+            <i class="fa fa-beer"></i> <span>{{ trans('admin.weights')}}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="{{ active_menu('weights')[2] }}">
+            <li class="{{ active_menu('weights')[1] }}"><a href="{{ aurl('weights') }}"><i class="fa fa-circle-o"></i>{{ trans('admin.weights')}}</a></li>
+            <li><a href="{{ aurl('weights/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

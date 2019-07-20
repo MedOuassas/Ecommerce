@@ -123,4 +123,6 @@ return[
     'public' => 'Public',
     'weight' => 'Weight',
     'weights' => 'Weights',
+    'products' => 'Products',
+    'product' => 'Product',
 ];

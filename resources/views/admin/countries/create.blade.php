@@ -21,6 +21,10 @@
                     {!! Form::text('code', old('code'), ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
+                    {!! Form::label('currency', trans('admin.currency')) !!}
+                    {!! Form::text('currency', old('currency'), ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
                     {!! Form::label('mob', trans('admin.mob')) !!}
                     {!! Form::text('mob', old('mob'), ['class' => 'form-control']) !!}
                 </div>

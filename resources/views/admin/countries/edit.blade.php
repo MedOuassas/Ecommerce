@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('content')
 <div class="row">
-    <div class="col-md-6 col-md-offset-3 col-xs-12">
+    <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">{{ $title }}</h3>
@@ -19,6 +19,10 @@
                 <div class="form-group">
                     {!! Form::label('code', trans('admin.code')) !!}
                     {!! Form::text('code', $country->code, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('currency', trans('admin.currency')) !!}
+                    {!! Form::text('currency', $country->currency, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                     {!! Form::label('mob', trans('admin.mob')) !!}

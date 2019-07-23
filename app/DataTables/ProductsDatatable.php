@@ -6,7 +6,7 @@ use App\Model\Product;
 use Yajra\DataTables\Services\DataTable;
 use Up;
 
-class CountriesDatatable extends DataTable
+class ProductsDatatable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -34,6 +34,13 @@ class CountriesDatatable extends DataTable
     public function query()
     {
         return Product::query();
+        //->with('categories')
+        //->with('brands')
+        //->with('makers')
+        //->with('colors')
+        //->with('sizes')
+        //->with('countries')
+        //->select('products.*');
     }
 
     /**
@@ -96,14 +103,18 @@ class CountriesDatatable extends DataTable
                 'data' => 'id',
                 'title' => 'ID'
             ], [
-                'name' => 'name_'.lang(),
-                'data' => 'name_'.lang(),
-                'title' => 'Country '.lang()
+                'name' => 'title',
+                'data' => 'title',
+                'title' => 'Title'
+            ], [/*
+                'name' => 'category.categ_name_'.lang(),
+                'data' => 'category.categ_name_'.lang(),
+                'title' => 'Category'
             ], [
                 'name' => 'code',
                 'data' => 'code',
                 'title' => 'Code'
-            ], [
+            ], [ */
                 'name' => 'created_at',
                 'data' => 'created_at',
                 'title' => 'Created At'

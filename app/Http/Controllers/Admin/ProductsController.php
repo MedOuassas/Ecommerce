@@ -27,7 +27,11 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create', ['title' => trans('admin.create')]);
+        $product = Product::create(['title'=>'']);
+        if(!empty($product)) {
+            return redirect(aurl('products/'.$product->id.'/edit'));
+        }
+        //return view('admin.products.create', ['title' => trans('admin.create')]);
     }
 
     /**
@@ -39,22 +43,16 @@ class ProductsController extends Controller
     public function store()
     {
         $data = $this->validate(request(), [
-                'name_en'   => 'required',
-                'name_ar'   => 'required',
-                'code'      => 'required',
-                'mob'       => 'required',
-                'logo'      => 'required|'.v_image()
+                'title'   => 'required',
+                'photo'      => 'required|'.v_image()
             ], [], [
-                'name_en'   => trans('admin.name_en'),
-                'name_ar'   => trans('admin.name_ar'),
-                'code'      => trans('admin.code'),
-                'mob'       => trans('admin.mob'),
-                'logo'      => trans('admin.logo')
+                'title'   => trans('admin.title'),
+                'photo'      => trans('admin.photo')
             ]
         );
-        if(request()->hasFile('logo')) {
-            $data['logo'] = up()->upload([
-                'file'          =>'logo',
+        if(request()->hasFile('photo')) {
+            $data['photo'] = up()->upload([
+                'file'          =>'photo',
                 'path'          =>'products',
                 'upload_type'   =>'single',
                 'delete_file'   =>''
@@ -86,7 +84,8 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        return view('admin.products.edit', ['title' => trans('admin.edit'), 'product' => $product]);
+        $title = "Create / Edit : " .$product->title;
+        return view('admin.products.product', ['title' => $title, 'product' => $product]);
     }
 
     /**
@@ -99,25 +98,19 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validate(request(), [
-                'name_en'   => 'required',
-                'name_ar'   => 'required',
-                'code'      => 'required',
-                'mob'       => 'required',
-                'logo'      => 'sometimes|nullable|'.v_image(),
+                'title'   => 'required',
+                'photo'      => 'sometimes|nullable|'.v_image(),
             ], [], [
-                'name_en'   => trans('admin.name_en'),
-                'name_ar'   => trans('admin.name_ar'),
-                'code'      => trans('admin.code'),
-                'mob'       => trans('admin.mob'),
-                'logo'      => trans('admin.logo')
+                'title'   => trans('admin.title'),
+                'photo'      => trans('admin.photo')
             ]
         );
-        if(request()->hasFile('logo')) {
-            $data['logo'] = up()->upload([
-                'file'          =>'logo',
+        if(request()->hasFile('photo')) {
+            $data['photo'] = up()->upload([
+                'file'          =>'photo',
                 'path'          =>'products',
                 'upload_type'   =>'single',
-                'delete_file'   =>Product::find($id)->logo
+                'delete_file'   =>Product::find($id)->photo
             ]);
         }
         Product::where('id', $id)->update($data);
@@ -135,7 +128,7 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        Storage::delete($product->logo);
+        Storage::delete($product->photo);
         $product->delete();
         session()->flash('success', trans('admin.record_deleted'));
 
@@ -146,12 +139,12 @@ class ProductsController extends Controller
         if(is_array(request('item'))){
             foreach(request('item') as $id){
                 $product = Product::find($id);
-                Storage::delete($product->logo);
+                Storage::delete($product->photo);
                 $product->delete();
             }
         } else {
             $product = Product::find(request('item'));
-            Storage::delete($product->logo);
+            Storage::delete($product->photo);
             $product->delete();
         }
         session()->flash('success', trans('admin.records_deleted'));

@@ -42,12 +42,14 @@ class CountriesController extends Controller
                 'country_name_en'   => 'required',
                 'country_name_ar'   => 'required',
                 'code'              => 'required',
+                'currency'          => 'required',
                 'mob'               => 'required',
                 'logo'              => 'required|'.v_image()
             ], [], [
                 'country_name_en'   => trans('admin.country_name_en'),
                 'country_name_ar'   => trans('admin.country_name_ar'),
                 'code'              => trans('admin.code'),
+                'currency'          => trans('admin.currency'),
                 'mob'               => trans('admin.mob'),
                 'logo'              => trans('admin.logo')
             ]
@@ -102,12 +104,14 @@ class CountriesController extends Controller
                 'country_name_en'   => 'required',
                 'country_name_ar'   => 'required',
                 'code'              => 'required',
+                'currency'          => 'required',
                 'mob'               => 'required',
                 'logo'              => 'sometimes|nullable|'.v_image(),
             ], [], [
                 'country_name_en'   => trans('admin.country_name_en'),
                 'country_name_ar'   => trans('admin.country_name_ar'),
                 'code'              => trans('admin.code'),
+                'currency'          => trans('admin.currency'),
                 'mob'               => trans('admin.mob'),
                 'logo'              => trans('admin.logo')
             ]

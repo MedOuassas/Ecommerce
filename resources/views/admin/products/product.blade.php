@@ -46,8 +46,13 @@
         </div>
     </div>
 </div>
+@push('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+@endpush
 
 @push('jscript')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 <script>
     $(function () {
         $('#jstree_categories').jstree({
@@ -72,6 +77,8 @@
             //console.log(data.selected[0]);
             $('.category_id').val(data.selected[0]);
         });
+
+        $('.date_offer').datetimepicker();
     });
 </script>
 @endpush

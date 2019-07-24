@@ -135,4 +135,8 @@ return[
     'save_continue' => 'Save & Continue',
     'clone_product' => 'Clone Product',
     'content' => 'Content',
+    'inactive' => 'Inactive',
+    'active' => 'Active',
+    'offre_start_at' => 'Offre Start At',
+    'offre_end_at' => 'Offre End At',
 ];

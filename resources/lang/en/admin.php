@@ -136,7 +136,9 @@ return[
     'clone_product' => 'Clone Product',
     'content' => 'Content',
     'inactive' => 'Inactive',
-    'active' => 'Active',
+    'price' => 'Price',
+    'price_offre' => 'Price offre',
+    'stock' => 'Stock',
     'offre_start_at' => 'Offre Start At',
     'offre_end_at' => 'Offre End At',
 ];

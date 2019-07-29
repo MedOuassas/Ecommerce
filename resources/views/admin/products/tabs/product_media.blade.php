@@ -3,5 +3,5 @@
     {{-- <h4>{{ trans('admin.photo') }} :</h4>
     <div id="product_photo" class="dropzone margin"></div> --}}
     <h4>{{ trans('admin.images') }} :</h4>
-    <div id="product_photos" class="dropzone margin"></div>
+    <div id="product_photos" class="dropzone"></div>
 </div>

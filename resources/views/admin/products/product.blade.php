@@ -95,15 +95,20 @@
         }); */
         $('#product_photos').dropzone({
             url: "{{ aurl('upload/image/'.$product->id) }}",
-            methode: "post",
-            paramName: "files[]",
-            uploadMultiple: true,
-            maxFilesize: "1", //Mb
-            maxFiles: "5",
+            paramName: "file",
+            uploadMultiple: false,
+            maxFilesize: 0.5, //Mb
+            maxFiles: 5,
             acceptedFiles: "image/*",
             params : {
                 _token: '{{csrf_token()}}'
-            },
+            },init: function(){
+                @foreach($product->files()->get() as $file)
+                    var pict = {name:'{{ $file->name }}', size:'{{ $file->size }}', type:'{{ $file->mime_type }}'};
+                    this.addFile.call(this, pict);
+                    this.options.thumbnail.call(this, pict, '{{ url('storage/'.$file->full_file) }}');
+                @endforeach
+            }
         });
     });
 </script>

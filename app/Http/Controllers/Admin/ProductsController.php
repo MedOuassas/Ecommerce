@@ -31,7 +31,6 @@ class ProductsController extends Controller
         if(!empty($product)) {
             return redirect(aurl('products/'.$product->id.'/edit'));
         }
-        //return view('admin.products.create', ['title' => trans('admin.create')]);
     }
 
     /**
@@ -42,26 +41,7 @@ class ProductsController extends Controller
      */
     public function store()
     {
-        $data = $this->validate(request(), [
-                'title'   => 'required',
-                'photo'      => 'required|'.v_image()
-            ], [], [
-                'title'   => trans('admin.title'),
-                'photo'      => trans('admin.photo')
-            ]
-        );
-        if(request()->hasFile('photo')) {
-            $data['photo'] = up()->upload([
-                'file'          =>'photo',
-                'path'          =>'products',
-                'upload_type'   =>'single',
-                'delete_file'   =>''
-            ]);
-        }
-        Product::create($data);
-        session()->flash('success', trans('admin.record_added'));
-
-        return redirect(aurl('products'));
+        //
     }
 
     /**
@@ -82,15 +62,15 @@ class ProductsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function upload_files($id)
+    public function upload_file($id)
     {
-        if(request()->hasFile('files')) {
-            return $data['files'] = up()->upload([
-                'file'          =>'files',
-                'path'          =>'products/'.$id,
-                'upload_type'   =>'multiple',
-                'file_type'     =>'product',
-                'relation_id'   =>$id
+        if(request()->hasFile('file')) {
+            return up()->upload([
+                'file'          => 'file',
+                'path'          => 'products/'.$id,
+                'upload_type'   => 'files',
+                'file_type'     => 'product',
+                'relation_id'   => $id,
             ]);
         }
     }

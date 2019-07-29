@@ -46,14 +46,18 @@
         </div>
     </div>
 </div>
+
 @push('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 @endpush
 
 @push('jscript')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script>
+    Dropzone.autoDiscover = false;
     $(function () {
         $('#jstree_categories').jstree({
             "core": {
@@ -69,18 +73,37 @@
         });
 
         $('#jstree_categories').on('changed.jstree', function (e,data) {
-            /* var i, j, r = [];
-            for (i = 0, j=data.selected; i < j.length; i++) {
-                r.push(data.instance.get_node(data.selected[i]).id);
-            }
-            $('.category_id').val(r.join(', ')); */
-            //console.log(data.selected[0]);
             $('.category_id').val(data.selected[0]);
         });
 
         $('.date_offer').datetimepicker({
             format: 'YYYY-MM-DD HH:mm',
-            minDate: new Date()
+            minDate: new Date(),
+            showClose: true,
+            showClear: true
+        });
+
+        /* $('#product_photo').dropzone({
+            url: "{{ aurl('storage/products/'.$product->id) }}",
+            params : {
+                _token: '{{csrf_token()}}'
+            },
+            paramName: "photo",
+            maxFilesize: "1", //Mb
+            maxFiles: "1",
+            acceptedFiles: "image/*",
+        }); */
+        $('#product_photos').dropzone({
+            url: "{{ aurl('upload/image/'.$product->id) }}",
+            methode: "post",
+            paramName: "files[]",
+            uploadMultiple: true,
+            maxFilesize: "1", //Mb
+            maxFiles: "5",
+            acceptedFiles: "image/*",
+            params : {
+                _token: '{{csrf_token()}}'
+            },
         });
     });
 </script>

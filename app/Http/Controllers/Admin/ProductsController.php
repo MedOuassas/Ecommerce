@@ -81,6 +81,20 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function upload_files($id)
+    {
+        if(request()->hasFile('files')) {
+            return $data['files'] = up()->upload([
+                'file'          =>'files',
+                'path'          =>'products/'.$id,
+                'upload_type'   =>'multiple',
+                'file_type'     =>'product',
+                'relation_id'   =>$id
+            ]);
+        }
+    }
+
     public function edit($id)
     {
         $product = Product::find($id);

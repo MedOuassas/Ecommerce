@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\File;
+use Storage;
 
 /* 
     'name',
@@ -25,6 +27,27 @@ class Upload extends Controller
         if(request()->hasFile($data['file']) && $data['upload_type'] == 'single') {
             \Storage::has($data['delete_file'])?\Storage::delete($data['delete_file']):'';
             return request()->file($data['file'])->store($data['path']);
+        } elseif (request()->hasFile($data['file']) && $data['upload_type'] == 'multiple') {
+            
+            $file = request()->file($data['file']);
+
+            $size = $file->getSize();
+            $mime_type = $file->getMimeType();
+            $name = $file->getClientOriginalName();
+            $hashname = $file->hashName();
+
+            $file->store($data['path']);
+            $add = File::create([
+                'name' => $name,
+                'size' => $size,
+                'file' => $hashname,
+                'full_file' => $data['path'].$hashname,
+                'mime_type' => $mime_type,
+                'file_type' => $data['file_type'],
+                'ralation_id' => $data['relation_id']
+            ]);
+
+            return $data['path'] . $hashname;
         }
     }
 }

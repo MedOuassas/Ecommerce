@@ -14,6 +14,6 @@ class File extends Model
         'full_file',
         'mime_type',
         'file_type',
-        'ralation_id'
+        'relation_id'
     ];
 }

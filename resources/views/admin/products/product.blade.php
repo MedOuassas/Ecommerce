@@ -83,16 +83,6 @@
             showClear: true
         });
 
-        /* $('#product_photo').dropzone({
-            url: "{{ aurl('storage/products/'.$product->id) }}",
-            params : {
-                _token: '{{csrf_token()}}'
-            },
-            paramName: "photo",
-            maxFilesize: "1", //Mb
-            maxFiles: "1",
-            acceptedFiles: "image/*",
-        }); */
         $('#product_photos').dropzone({
             url: "{{ aurl('upload/image/'.$product->id) }}",
             paramName: "file",
@@ -102,12 +92,79 @@
             acceptedFiles: "image/*",
             params : {
                 _token: '{{csrf_token()}}'
-            },init: function(){
+            },
+            addRemoveLinks: true,
+            dictRemoveFile: "{{trans('admin.remove')}}",
+            removedfile: function (file) {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'post',
+                    url: '{{ aurl("delete/image") }}',
+                    data: {_token: '{{ csrf_token() }}', id: file.fid}
+                });
+                var delpict;
+                return (delpict = file.previewElement) != null ? delpict.parentNode.removeChild(file.previewElement):void 0;
+            },
+            init: function () {
                 @foreach($product->files()->get() as $file)
-                    var pict = {name:'{{ $file->name }}', size:'{{ $file->size }}', type:'{{ $file->mime_type }}'};
-                    this.addFile.call(this, pict);
+                    var pict = {name:'{{ $file->name }}', fid:'{{ $file->id }}', size:'{{ $file->size }}', type:'{{ $file->mime_type }}'};
+                    this.emit('addedfile', pict);
                     this.options.thumbnail.call(this, pict, '{{ url('storage/'.$file->full_file) }}');
+                    this.emit("complete", pict);
+                    $('.dz-progress').hide();
                 @endforeach
+
+                this.on('sending', function(file, xhr, formData){
+                    formData.append('fid', '');
+                    file.fid = '';
+                });
+
+                this.on('success', function(file, response){
+                    file.fid = response.id
+                });
+            }
+        });
+
+        $('#product_photo').dropzone({
+            url: "{{ aurl('update/image/'.$product->id) }}",
+            paramName: "photo",
+            uploadMultiple: false,
+            maxFilesize: 2, //Mb
+            maxFiles: 1,
+            acceptedFiles: "image/*",
+            params : {
+                _token: '{{csrf_token()}}'
+            },
+            addRemoveLinks: true,
+            dictRemoveFile: "{{trans('admin.remove')}}",
+            removedfile: function (file) {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'post',
+                    url: '{{ aurl("delete/product/image/".$product->id) }}',
+                    data: {_token: '{{ csrf_token() }}'}
+                });
+                var delpict;
+                return (delpict = file.previewElement) != null ? delpict.parentNode.removeChild(file.previewElement):void 0;
+            },
+            init: function () {
+                @if(!empty($product->photo))
+                    var pict = {name:'{{ $product->title }}', size:'', type:''};
+                    this.emit('addedfile', pict);
+                    this.options.thumbnail.call(this, pict, '{{ url('storage/'.$product->photo) }}');
+                    this.emit("complete", pict);
+                    $('.dz-progress').hide();
+                    $('.dz-details').hide();
+                @endif
+
+                this.on('sending', function(file, xhr, formData){
+                    formData.append('fid', '');
+                    file.fid = '';
+                });
+
+                this.on('success', function(file, response){
+                    file.fid = response.id
+                });
             }
         });
     });

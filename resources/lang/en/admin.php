@@ -132,6 +132,7 @@ return[
     'product_media' => 'Media',
     'product_size_weight' => 'Size & Weight',
     'other_data' => 'Other data',
+    'other_images' => 'Other Images',
     'save_continue' => 'Save & Continue',
     'clone_product' => 'Clone Product',
     'content' => 'Content',

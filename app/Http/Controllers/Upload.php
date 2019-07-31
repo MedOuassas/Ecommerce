@@ -37,17 +37,26 @@ class Upload extends Controller
             $hashname   = $file->hashName();
 
             $file->store($data['path']);
-            File::create([
+            $add = File::create([
                 'name' => $name,
                 'size' => $size,
                 'file' => $hashname,
                 'full_file' => $data['path'].'/'.$hashname,
                 'mime_type' => $mime_type,
                 'file_type' => $data['file_type'],
-                'ralation_id' => $data['relation_id']
+                'relation_id' => $data['relation_id']
             ]);
 
-            return $data['path'] .'/'. $hashname;
+            return $add->id;
         }
     }
+
+    public function delete($id) {
+        $file = File::find($id);
+        if(!empty($file)){
+            Storage::delete($file->full_file);
+            $file->delete();
+        }
+    }
+
 }

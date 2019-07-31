@@ -65,14 +65,45 @@ class ProductsController extends Controller
     public function upload_file($id)
     {
         if(request()->hasFile('file')) {
-            return up()->upload([
+            $fid = up()->upload([
                 'file'          => 'file',
                 'path'          => 'products/'.$id,
                 'upload_type'   => 'files',
                 'file_type'     => 'product',
                 'relation_id'   => $id,
             ]);
+            return response(['status'=>true, 'id'=>$fid], 200);
         }
+    }
+
+    public function delete_file()
+    {
+        if(request()->has('id')) {
+            up()->delete(request('id'));
+        }
+    }
+
+    public function update_product_photo($id)
+    {
+        if(request()->hasFile('photo')) {
+            $product = Product::where('id', $id)->update([
+                'photo' => up()->upload([
+                    'file'          => 'photo',
+                    'path'          => 'products/'.$id,
+                    'upload_type'   => 'single',
+                    'delete_file'   => ''
+                ])
+            ]);
+
+            return response(['status'=>true], 200);
+        }
+    }
+
+    public function delete_product_photo($id)
+    {
+        $product = Product::find($id);
+        Storage::delete($product->photo);
+        Product::where('id', $id)->update(['photo' => '']);
     }
 
     public function edit($id)

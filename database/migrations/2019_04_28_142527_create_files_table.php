@@ -21,7 +21,7 @@ class CreateFilesTable extends Migration
             $table->string('full_file');
             $table->string('mime_type');
             $table->string('file_type');
-            $table->integer('ralation_id');
+            $table->integer('relation_id');
             $table->timestamps();
         });
     }

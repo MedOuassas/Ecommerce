@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->foreign('maker_id')->references('id')->on('makers')->onDelete('cascade');
             $table->integer('color_id')->unsigned()->nullable();
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
+            $table->string('weight')->nullable();
             $table->integer('size_id')->unsigned()->nullable();
             $table->foreign('size_id')->references('id')->on('sizes')->onDelete('cascade');
             $table->string('weight')->nullable();

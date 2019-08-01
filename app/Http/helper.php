@@ -7,6 +7,19 @@ if(!function_exists('aurl')){
     }
 }
 
+//get category and category parent
+if(!function_exists('get_category')){
+    function get_category($cat_id)
+    {
+        $category = \App\Model\Category::find($cat_id);
+        if($category->parent != null && $category->parent > 0) {
+            get_category($category->parent). "," . $cat_id;
+        } else {
+            return $cat_id;
+        }
+    }
+}
+
 if(!function_exists('load_category')){
     function load_category($select = null, $categ_selected = null)
     {

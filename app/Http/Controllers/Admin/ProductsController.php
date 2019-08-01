@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\DataTables\ProductsDatatable;
 use Illuminate\Http\Request;
 use App\Model\Product;
+use App\Model\Size;
+use App\Model\Weight;
 use Up;
 use Storage;
 
@@ -106,6 +108,20 @@ class ProductsController extends Controller
         Product::where('id', $id)->update(['photo' => '']);
     }
 
+    public function load_weight_size()
+    {
+        if (request()->ajax() and request()->has('category_id')){
+            return get_category(request('category_id'));
+            $product = Product::find(request('pid'));
+            $sizes = Size::where('category_id', request('category_id'))->pluck('name', 'id');
+            $weights = Weight::pluck('name', 'id');
+
+            return view('admin.products.ajax.size_weight', ['sizes'=>$sizes, 'weights'=>$weights, 'product' => $product])->render();
+        } else {
+            return trans('admin.please_select_category');
+        }
+    }
+
     public function edit($id)
     {
         $product = Product::find($id);
@@ -123,21 +139,37 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validate(request(), [
-                'title'   => 'required',
-                'photo'      => 'sometimes|nullable|'.v_image(),
+                'title'             => 'required',
+                'description'       => 'required',
+                'content'           => 'required',
+                'category_id'       => 'required|numeric',
+                'price'             => 'required',
+                'price_offre'       => 'sometimes|nullable',
+                'stock'             => 'required|numeric',
+                'offre_start_at'    => 'sometimes|nullable',
+                'offre_end_at'      => 'sometimes|nullable',
+                'status'            => 'required',
+                'size'              => 'required',
+                'size_id'           => 'required',
+                'weight'            => 'required',
+                'weight_id'         => 'required',
             ], [], [
-                'title'   => trans('admin.title'),
-                'photo'      => trans('admin.photo')
+                'title'             => trans('admin.title'),
+                'description'       => trans('admin.description'),
+                'content'           => trans('admin.content'),
+                'category_id'       => trans('admin.category'),
+                'price'             => trans('admin.price'),
+                'price_offre'       => trans('admin.price_offre'),
+                'stock'             => trans('admin.stock'),
+                'offre_start_at'    => trans('admin.offre_start_at'),
+                'offre_end_at'      => trans('admin.offre_end_at'),
+                'status'            => trans('admin.status'),
+                'size'              => trans('admin.size'),
+                'size_id'           => trans('admin.size_name'),
+                'weight'            => trans('admin.weight'),
+                'weight_id'         => trans('admin.weight_name'),
             ]
         );
-        if(request()->hasFile('photo')) {
-            $data['photo'] = up()->upload([
-                'file'          =>'photo',
-                'path'          =>'products',
-                'upload_type'   =>'single',
-                'delete_file'   =>Product::find($id)->photo
-            ]);
-        }
         Product::where('id', $id)->update($data);
         session()->flash('success', trans('admin.record_edited'));
 
@@ -154,6 +186,9 @@ class ProductsController extends Controller
     {
         $product = Product::find($id);
         Storage::delete($product->photo);
+        foreach ($product->files()->get() as $file) {
+            up()->delete($file->id);
+        }
         $product->delete();
         session()->flash('success', trans('admin.record_deleted'));
 

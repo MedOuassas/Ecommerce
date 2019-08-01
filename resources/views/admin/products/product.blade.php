@@ -8,7 +8,7 @@
                 <h3 class="box-title">{{ $title }}</h3>
             </div>
             <div class="box-body">
-                {!! Form::open(['id' => 'create_product', 'url' => aurl('products/'.$product->id), 'method' => 'post', 'files' => true]) !!}
+                {!! Form::open(['id' => 'create_product', 'url' => aurl('products/'.$product->id), 'method' => 'put', 'files' => true]) !!}
 
                 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success', 'type' => 'submit']) !!}
                 <a href="{{ aurl('products') }}" class="btn btn-info">{{ trans('admin.save_continue') }}</a>
@@ -50,6 +50,13 @@
 @push('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
+<style>
+    .dropzone .dz-preview .dz-image img {
+        display: block;
+        max-height: 100%;
+        min-width: 100%;
+    }
+</style>
 @endpush
 
 @push('jscript')
@@ -73,7 +80,17 @@
         });
 
         $('#jstree_categories').on('changed.jstree', function (e,data) {
-            $('.category_id').val(data.selected[0]);
+            var cat_id = data.selected[0];
+            $('.category_id').val(cat_id);
+            $.ajax({
+                url: '{{ aurl("product/load/weight-size") }}',
+                dataType: 'html',
+                type: 'post',
+                data: {_token:'{{csrf_token()}}', pid: {{$product->id}}, category_id: cat_id},
+                success: function (data) {
+                    $('.size_weight').html(data);
+                }
+            });
         });
 
         $('.date_offer').datetimepicker({

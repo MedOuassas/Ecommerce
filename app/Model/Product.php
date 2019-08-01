@@ -16,6 +16,7 @@ class Product extends Model
         'brand_id',
         'maker_id',
         'color_id',
+        'size',
         'size_id',
         'weight',
         'weight_id',
@@ -32,5 +33,10 @@ class Product extends Model
     public function files()
     {
         return $this->hasMany('App\File', 'relation_id', 'id')->where('file_type', 'product');
+    }
+
+    public function category()
+    {
+        return $this->hasOne('App\Model\Category', 'id', 'category_id');
     }
 }

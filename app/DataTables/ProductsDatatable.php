@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Model\Product;
 use Yajra\DataTables\Services\DataTable;
+use App\Model\Category;
 use Up;
 
 class ProductsDatatable extends DataTable
@@ -33,14 +34,14 @@ class ProductsDatatable extends DataTable
      */
     public function query()
     {
-        return Product::query();
-        //->with('categories')
-        //->with('brands')
-        //->with('makers')
-        //->with('colors')
-        //->with('sizes')
-        //->with('countries')
-        //->select('products.*');
+        return Product::query()
+        ->with('category')
+        ->select('products.*');
+        //->with('brand')
+        //->with('maker')
+        //->with('color')
+        //->with('size')
+        //->with('country')
     }
 
     /**
@@ -106,23 +107,23 @@ class ProductsDatatable extends DataTable
                 'name' => 'title',
                 'data' => 'title',
                 'title' => 'Title'
-            ], [/*
+            ], [
                 'name' => 'category.categ_name_'.lang(),
                 'data' => 'category.categ_name_'.lang(),
                 'title' => 'Category'
             ], [
-                'name' => 'code',
-                'data' => 'code',
-                'title' => 'Code'
-            ], [ */
+                'name' => 'status',
+                'data' => 'status',
+                'title' => 'Status'
+            ], [
                 'name' => 'created_at',
                 'data' => 'created_at',
                 'title' => 'Created At'
-            ], [
+            ], [/*
                 'name' => 'updated_at',
                 'data' => 'updated_at',
                 'title' => 'Updated At'
-            ], [
+            ], [ */
                 'name' => 'action',
                 'data' => 'action',
                 'title' => 'Actions',

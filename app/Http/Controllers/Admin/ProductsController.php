@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Model\Product;
 use App\Model\Size;
 use App\Model\Weight;
+use App\Model\Color;
+use App\Model\Brand;
+use App\Model\Maker;
 use Up;
 use Storage;
 
@@ -101,6 +104,21 @@ class ProductsController extends Controller
         }
     }
 
+    public function change_status()
+    {
+        $prod = Product::where('id', request()->has('prod_id'));
+        if(request()->ajax() and request()->has('prod_status')) {
+            if(request()->has('prod_status') == 'active'){
+                $prod->update(['status' => 'inactive']);
+                $status = 'btn-warning';
+            } else {
+                $prod->update(['status' => 'active']);
+                $status = 'btn-success';
+            }
+            return response(['status'=>true, 'pstatus'=> $status ], 200);
+        }
+    }
+
     public function delete_product_photo($id)
     {
         $product = Product::find($id);
@@ -111,10 +129,12 @@ class ProductsController extends Controller
     public function load_weight_size()
     {
         if (request()->ajax() and request()->has('category_id')){
-            return get_category(request('category_id'));
-            $product = Product::find(request('pid'));
-            $sizes = Size::where('category_id', request('category_id'))->pluck('name', 'id');
+            $cat_list = array_diff(explode(",", get_category(request('category_id'))), [request('category_id')]);
+            $size1 = Size::where('is_public', 'yes')->whereIn('category_id', $cat_list)->pluck('name', 'id');
+            $size2 = Size::where('category_id', request('category_id'))->pluck('name', 'id');
+            $sizes = json_decode($size1,true) + json_decode($size2,true);
             $weights = Weight::pluck('name', 'id');
+            $product = Product::find(request('pid'));
 
             return view('admin.products.ajax.size_weight', ['sizes'=>$sizes, 'weights'=>$weights, 'product' => $product])->render();
         } else {
@@ -125,8 +145,11 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
+        $colors = Color::all();
+        $brands = Brand::all();
+        $makers = Maker::all();
         $title = "Create / Edit : " .$product->title;
-        return view('admin.products.product', ['title' => $title, 'product' => $product]);
+        return view('admin.products.product', ['title' => $title, 'product' => $product, 'colors' => $colors, 'brands' => $brands, 'makers' => $makers]);
     }
 
     /**
@@ -143,16 +166,19 @@ class ProductsController extends Controller
                 'description'       => 'required',
                 'content'           => 'required',
                 'category_id'       => 'required|numeric',
-                'price'             => 'required',
-                'price_offre'       => 'sometimes|nullable',
+                'price'             => 'required|numeric',
+                'price_offre'       => 'sometimes|nullable|numeric',
                 'stock'             => 'required|numeric',
-                'offre_start_at'    => 'sometimes|nullable',
-                'offre_end_at'      => 'sometimes|nullable',
-                'status'            => 'required',
-                'size'              => 'required',
-                'size_id'           => 'required',
-                'weight'            => 'required',
-                'weight_id'         => 'required',
+                'offre_start_at'    => 'sometimes|nullable|date',
+                'offre_end_at'      => 'sometimes|nullable|date',
+                'status'            => 'required|in:inactive,active',
+                'size'              => 'sometimes|nullable|numeric',
+                'size_id'           => 'sometimes|nullable|numeric',
+                'weight'            => 'required|numeric',
+                'weight_id'         => 'required|numeric',
+                'color_id'          => 'sometimes|nullable|numeric',
+                'brand_id'          => 'sometimes|nullable|numeric',
+                'maker_id'          => 'sometimes|nullable|numeric',
             ], [], [
                 'title'             => trans('admin.title'),
                 'description'       => trans('admin.description'),
@@ -168,6 +194,9 @@ class ProductsController extends Controller
                 'size_id'           => trans('admin.size_name'),
                 'weight'            => trans('admin.weight'),
                 'weight_id'         => trans('admin.weight_name'),
+                'color_id'          => trans('admin.color_id'),
+                'brand_id'          => trans('admin.brand_id'),
+                'maker_id'          => trans('admin.maker_id'),
             ]
         );
         Product::where('id', $id)->update($data);

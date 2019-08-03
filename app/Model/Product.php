@@ -39,4 +39,5 @@ class Product extends Model
     {
         return $this->hasOne('App\Model\Category', 'id', 'category_id');
     }
+
 }

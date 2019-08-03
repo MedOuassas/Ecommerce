@@ -3,7 +3,7 @@
         <div class="form-group row">
             <label for="size_id" class="col-md-4">{{ trans('admin.size_name') }}</label>
             <div class="col-md-8">
-                {!! Form::select('size_id', $sizes, '', ['class' => 'form-control']) !!}
+                {!! Form::select('size_id', $sizes, $product->size_id, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="form-group row">
@@ -17,7 +17,7 @@
         <div class="form-group row">
             <label for="weight_id" class="col-md-4">{{ trans('admin.weight_name') }}</label>
             <div class="col-md-8">
-                {!! Form::select('weight_id', $weights, '', ['class' => 'form-control']) !!}
+                {!! Form::select('weight_id', $weights, $product->weight_id, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="form-group row">

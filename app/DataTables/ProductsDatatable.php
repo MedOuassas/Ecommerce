@@ -20,9 +20,11 @@ class ProductsDatatable extends DataTable
         return datatables($query)
             ->addColumn('action', 'admin.products.btn.action')
             ->addColumn('checkbox', 'admin.products.btn.checkbox')
+            ->addColumn('status', 'admin.products.btn.status')
             ->rawColumns([
                 'action',
-                'checkbox'
+                'checkbox',
+                'status'
             ]);
     }
 
@@ -114,7 +116,11 @@ class ProductsDatatable extends DataTable
             ], [
                 'name' => 'status',
                 'data' => 'status',
-                'title' => 'Status'
+                'title' => 'Status',
+                'exportable' => false,
+                'searchable' => false,
+                'orderable' => false,
+                'printable' => false,
             ], [
                 'name' => 'created_at',
                 'data' => 'created_at',

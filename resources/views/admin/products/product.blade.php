@@ -23,7 +23,6 @@
                     <li><a data-toggle="tab" href="#product_setting"><i class="fa fa-cog margin"></i>{{ trans('admin.product_setting') }}</a></li>
                     <li><a data-toggle="tab" href="#product_media"><i class="fa fa-photo margin"></i>{{ trans('admin.product_media') }}</a></li>
                     <li><a data-toggle="tab" href="#product_size_weight"><i class="fa fa-arrows-alt margin"></i>{{ trans('admin.product_size_weight') }}</a></li>
-                    <li><a data-toggle="tab" href="#other_data"><i class="fa fa-database margin"></i>{{ trans('admin.other_data') }}</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -32,15 +31,13 @@
                     @include('admin.products.tabs.product_setting')
                     @include('admin.products.tabs.product_media')
                     @include('admin.products.tabs.product_size_weight')
-                    @include('admin.products.tabs.other_data')
                 </div>
 
                 <hr>
 
                 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success', 'type' => 'submit']) !!}
-                <a href="{{ aurl('products') }}" class="btn btn-info">{{ trans('admin.save_continue') }}</a>
                 <a href="{{ aurl('products') }}" class="btn btn-default">{{ trans('admin.clone_product') }}</a>
-                <a href="{{ aurl('products') }}" class="btn btn-danger">{{ trans('admin.delete') }}</a>
+                <a href="{{ aurl('products/') }}" class="btn btn-danger">{{ trans('admin.delete') }}</a>
                 {!! Form::close([]) !!}
             </div>
         </div>

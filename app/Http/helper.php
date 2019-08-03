@@ -13,7 +13,7 @@ if(!function_exists('get_category')){
     {
         $category = \App\Model\Category::find($cat_id);
         if($category->parent != null && $category->parent > 0) {
-            get_category($category->parent). "," . $cat_id;
+            return get_category($category->parent). "," . $cat_id;
         } else {
             return $cat_id;
         }

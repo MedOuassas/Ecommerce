@@ -50,6 +50,29 @@
 <script src="{{ asset('/design/admin')}}/js/dataTables.buttons.min.js"></script>
 <script src="{{ url('')}}/vendor/datatables/buttons.server-side.js"></script>
 {!! $dataTable->scripts() !!}
+<script>
+    $(function(){
+        $(document).on('click', '.btn_status', function () {
+            var product_id = $('.btn_status').data('id'),
+                product_status = $('.btn_status').data('status');
+            $.ajax({
+                url: '{{ aurl("product/change-status") }}',
+                dataType: 'json',
+                type: 'post',
+                data: {_token:'{{csrf_token()}}', prod_id: product_id, prod_status: product_status },
+                success: function (data) {
+                    if(data.pstatus === 'btn-success'){
+                        $(this).removeClass('btn-warning').addClass('btn-success');
+                    }
+                    if(data.pstatus === 'btn-warning'){
+                        $(this).removeClass('btn-success').addClass('btn-warning');
+                    } else {
+                }
+            });
+            return false;
+        });
+    });
+</script>
 @endpush
 
 @endsection

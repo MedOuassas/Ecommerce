@@ -106,16 +106,16 @@ class ProductsController extends Controller
 
     public function change_status()
     {
-        $prod = Product::where('id', request()->has('prod_id'));
         if(request()->ajax() and request()->has('prod_status')) {
-            if(request()->has('prod_status') == 'active'){
-                $prod->update(['status' => 'inactive']);
-                $status = 'btn-warning';
+            $id = request()->get('prod_id');
+            if(request()->get('prod_status') == 'active'){
+                Product::where('id', $id)->update(['status' => 'inactive']);
+                $status = 'inactive';
             } else {
-                $prod->update(['status' => 'active']);
-                $status = 'btn-success';
+                Product::where('id', $id)->update(['status' => 'active']);
+                $status = 'active';
             }
-            return response(['status'=>true, 'pstatus'=> $status ], 200);
+            return json_encode(['status'=>$status]);
         }
     }
 

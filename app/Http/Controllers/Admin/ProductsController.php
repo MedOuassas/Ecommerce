@@ -229,6 +229,9 @@ class ProductsController extends Controller
             foreach(request('item') as $id){
                 $product = Product::find($id);
                 Storage::delete($product->photo);
+                foreach ($product->files()->get() as $file) {
+                    up()->delete($file->id);
+                }
                 $product->delete();
             }
         } else {

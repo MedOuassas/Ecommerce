@@ -119,17 +119,17 @@ class ProductsDatatable extends DataTable
                 'title' => 'Status',
                 'exportable' => false,
                 'searchable' => false,
-                'orderable' => false,
-                'printable' => false,
-            ], [
+                'orderable' => true,
+                'printable' => true,
+            ], [/*
                 'name' => 'created_at',
                 'data' => 'created_at',
                 'title' => 'Created At'
-            ], [/*
+            ], [*/
                 'name' => 'updated_at',
                 'data' => 'updated_at',
                 'title' => 'Updated At'
-            ], [ */
+            ], [
                 'name' => 'action',
                 'data' => 'action',
                 'title' => 'Actions',

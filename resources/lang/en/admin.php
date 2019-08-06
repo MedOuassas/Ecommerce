@@ -3,6 +3,8 @@ return[
     'login' => 'Login',
     'arab' => 'Arabe',
     'english' => 'English',
+    'ar' => 'Arabe',
+    'en' => 'English',
     'admin' => 'Admin Account',
     'adminpanel' => 'Admin Panel',
     'admin_controle' => 'Admin Control',

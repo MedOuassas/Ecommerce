@@ -55,6 +55,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('product/load/weight-size', 'ProductsController@load_weight_size');
         Route::post('product/change-status', 'ProductsController@change_status');
 
+        Route::resource('slides', 'SlidesController');
+        Route::delete('slides/destroy/all', 'SlidesController@multi_delete');
+        Route::post('slides/change-status', 'SlidesController@change_status');
+
         Route::get('/', function () {
             return view('admin.home');
         });

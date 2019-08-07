@@ -151,4 +151,6 @@ return[
     'please_select_category' => 'Please select a category',
     'size_name' => 'Size name',
     'weight_name' => 'Weight name',
+    'slide' => 'Slide',
+    'slides' => 'Slides',
 ];

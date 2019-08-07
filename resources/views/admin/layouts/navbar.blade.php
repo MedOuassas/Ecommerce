@@ -57,6 +57,18 @@
             <li><a href="{{ aurl('settings') }}"><i class="fa fa-tasks"></i>{{ trans('admin.settings')}}</a></li>
           </ul>
         </li>
+        <li class="treeview {{ active_menu('slides')[0] }}">
+          <a href="#">
+            <i class="fa fa-picture-o"></i> <span>{{ trans('admin.slides')}}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="{{ active_menu('slides')[2] }}">
+            <li class="{{ active_menu('slides')[1] }}"><a href="{{ aurl('slides') }}"><i class="fa fa-circle-o"></i>{{ trans('admin.slides')}}</a></li>
+            <li><a href="{{ aurl('slides/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
+          </ul>
+        </li>
         <li class="treeview {{ active_menu('admin')[0] }}">
           <a href="#">
             <i class="fa fa-user"></i> <span>{{ trans('admin.admin')}}</span>

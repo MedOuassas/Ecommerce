@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\DataTables\SlideDatatable;
-use App\Model\Slide;
+use App\DataTables\PostsDatatable;
+use App\Model\Post;
 use Illuminate\Http\Request;
 use Storage;
 
-class SlidesController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(SlideDatatable $slides)
+    public function index(PostsDatatable $posts)
     {
-        return $slides->render('admin.slides.index', ['title'=> trans('admin.slides')]);
+        return $posts->render('admin.posts.index', ['title'=> trans('admin.posts')]);
     }
 
     /**
@@ -26,7 +26,7 @@ class SlidesController extends Controller
      */
     public function create()
     {
-        return view('admin.slides.create', ['title'=> trans('admin.slides')]);
+        return view('admin.posts.create', ['title'=> trans('admin.posts')]);
     }
 
     /**
@@ -38,41 +38,47 @@ class SlidesController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate(request(), [
-                'title'         => 'sometimes|nullable',
-                'description'   => 'sometimes|nullable',
+                'title'         => 'required',
+                'description'   => 'required',
+                'content'       => 'required',
+                'category'      => 'sometimes|nullable',
                 'photo'         => 'required|'.v_image(),
-                'url'           => 'required|url',
+                'date'          => 'required|date',
                 'status'        => 'required|in:active,inactive',
+                'keywords'      => 'sometimes|nullable',
             ], [], [
                 'title'         => trans('admin.title'),
                 'description'   => trans('admin.description'),
                 'photo'         => trans('admin.photo'),
-                'url'           => trans('admin.url'),
+                'content'       => trans('admin.content'),
+                'category'      => trans('admin.category'),
+                'date'          => trans('admin.date'),
+                'keywords'      => trans('admin.keywords'),
                 'status'        => trans('admin.status')
             ]
         );
         if(request()->hasFile('photo')){
             $data['photo'] = up()->upload([
                 'file'          =>'photo',
-                'path'          =>'slides',
+                'path'          =>'posts',
                 'upload_type'   =>'single',
                 'delete_file'   =>''
             ]);
         }
 
-        Slide::create($data);
+        Post::create($data);
         session()->flash('success', trans('admin.record_added'));
 
-        return redirect(aurl('slides'));
+        return redirect(aurl('posts'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Slide  $slide
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Slide $slide)
+    public function show(Post $post)
     {
         //
     }
@@ -80,33 +86,33 @@ class SlidesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Slide  $slide
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $slide = Slide::find($id);
-        return view('admin.slides.edit', ['title'=> trans('admin.slides'), 'slide'=>$slide]);
+        $post = Post::find($id);
+        return view('admin.posts.edit', ['title'=> trans('admin.posts'), 'post'=>$post]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Slide  $slide
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
 
     public function change_status()
     {
-        if(request()->ajax() and request()->has('slide_status')) {
-            $id = request()->get('slide_id');
-            if(request()->get('slide_status') == 'active'){
+        if(request()->ajax() and request()->has('post_status')) {
+            $id = request()->get('post_id');
+            if(request()->get('post_status') == 'active'){
                 $status = 'inactive';
-                Slide::where('id', $id)->update(['status' => $status]);
+                Post::where('id', $id)->update(['status' => $status]);
             } else {
                 $status = 'active';
-                Slide::where('id', $id)->update(['status' => $status]);
+                Post::where('id', $id)->update(['status' => $status]);
             }
             return json_encode(['status'=>$status]);
         }
@@ -115,58 +121,63 @@ class SlidesController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validate(request(), [
-                'title'         => 'sometimes|nullable',
-                'description'   => 'sometimes|nullable',
+                'title'         => 'required',
+                'description'   => 'required',
+                'content'       => 'required',
+                'category'      => 'sometimes|nullable',
                 'photo'         => 'sometimes|nullable|'.v_image(),
-                'url'           => 'required|url',
+                'date'          => 'required|date',
                 'status'        => 'required|in:active,inactive',
+                'keywords'      => 'sometimes|nullable',
             ], [], [
                 'title'         => trans('admin.title'),
                 'description'   => trans('admin.description'),
                 'photo'         => trans('admin.photo'),
-                'url'           => trans('admin.url'),
+                'content'       => trans('admin.content'),
+                'category'      => trans('admin.category'),
+                'date'          => trans('admin.date'),
+                'keywords'      => trans('admin.keywords'),
                 'status'        => trans('admin.status')
-            ]
-        );
+            ]);
         if(request()->hasFile('photo')){
             $data['photo'] = up()->upload([
                 'file'          =>'photo',
-                'path'          =>'slides',
+                'path'          =>'posts',
                 'upload_type'   =>'single',
-                'delete_file'   =>Slide::find($id)->photo
+                'delete_file'   =>Post::find($id)->photo
             ]);
         }
 
-        Slide::where('id', $id)->update($data);
+        Post::where('id', $id)->update($data);
         session()->flash('success', trans('admin.record_edited'));
 
-        return redirect(aurl('slides'));
+        return redirect(aurl('posts'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Slide  $slide
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
 
     public function destroy($id)
     {
-        $slide = Slide::find($id);
-        if(!empty($slide->photo)){
-            Storage::has($slide->photo)?Storage::delete($slide->photo):'';
+        $post = Post::find($id);
+        if(!empty($post->photo)){
+            Storage::has($post->photo)?Storage::delete($post->photo):'';
         }
-        $slide->delete();
+        $post->delete();
 
         session()->flash('success', trans('admin.record_deleted'));
-        return redirect(aurl('slides'));
+        return redirect(aurl('posts'));
     }
 
     public function multi_delete() {
         if(is_array(request('item'))){
-            Slide::destroy(request('item'));
+            Post::destroy(request('item'));
         } else {
-            Slide::find(request('item'))->delete();
+            Post::find(request('item'))->delete();
         }
         session()->flash('success', trans('admin.records_deleted'));
 

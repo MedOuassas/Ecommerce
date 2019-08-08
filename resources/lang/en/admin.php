@@ -153,4 +153,7 @@ return[
     'weight_name' => 'Weight name',
     'slide' => 'Slide',
     'slides' => 'Slides',
+    'date' => 'Date',
+    'post' => 'Post',
+    'posts' => 'Posts',
 ];

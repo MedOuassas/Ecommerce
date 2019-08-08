@@ -69,6 +69,18 @@
             <li><a href="{{ aurl('slides/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
           </ul>
         </li>
+        <li class="treeview {{ active_menu('posts')[0] }}">
+          <a href="#">
+            <i class="fa fa-newspaper-o"></i> <span>{{ trans('admin.posts')}}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="{{ active_menu('posts')[2] }}">
+            <li class="{{ active_menu('posts')[1] }}"><a href="{{ aurl('posts') }}"><i class="fa fa-circle-o"></i>{{ trans('admin.posts')}}</a></li>
+            <li><a href="{{ aurl('posts/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
+          </ul>
+        </li>
         <li class="treeview {{ active_menu('admin')[0] }}">
           <a href="#">
             <i class="fa fa-user"></i> <span>{{ trans('admin.admin')}}</span>

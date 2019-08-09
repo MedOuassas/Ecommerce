@@ -156,4 +156,5 @@ return[
     'date' => 'Date',
     'post' => 'Post',
     'posts' => 'Posts',
+    'url' => 'Url',
 ];

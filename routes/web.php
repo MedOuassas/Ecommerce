@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('front.home');
+Route::group(['prefix' => '', 'namespace' => 'Front'], function () {
+
+    Route::get('/', 'HomeController@index');
+
 });
 Route::get('lang/{lang}', function($lang) {
     session()->has('lang') ? session()->forget('lang') : '';

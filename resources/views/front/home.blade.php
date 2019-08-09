@@ -25,9 +25,10 @@
                         <div class="main_slider_area">
                             <div id="home_box_slider" class="rev_slider" data-version="5.3.1.6">
                                 <ul>
-                                    <li data-index="rs-1587" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="img/home-slider/slider-1.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Creative" data-param1="01" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+                                    @foreach ($slides as $slide)
+                                    <li data-index="rs-{{$slide->id}}" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="img/home-slider/slider-1.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Creative" data-param1="01" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
                                         <!-- MAIN IMAGE -->
-                                        <img src="{{ asset('design/front') }}/img/home-slider/slider-2.jpg"  alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
+                                        <img src="{{ url('storage/'.$slide->photo) }}"  alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
 
                                         <!-- LAYER NR. 1 -->
                                         <div class="slider_text_box first_text">
@@ -45,7 +46,7 @@
                                             data-responsive_offset="on"
                                             data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
                                             data-textAlign="['left','left','left','left','left','left']"
-                                            >Best Winter <br> Collection</div>
+                                            >{!! $slide->title !!}</div>
 
                                             <div class="tp-caption tp-resizeme secand_text"
                                                 data-x="['left','left','left','left','left','left']"
@@ -61,7 +62,7 @@
                                                 data-transform_idle="o:1;"
                                                 data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
                                                 data-textAlign="['left','left','left','left','left','left']"
-                                                >There is no one who loves to be bread, who looks after it and wants to have it, simply because it is pain.
+                                                >{{ $slide->description }}
                                             </div>
 
                                             <div class="tp-caption tp-resizeme third_btn"
@@ -75,66 +76,11 @@
                                                 data-responsive_offset="on"
                                                 data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
                                                 data-textAlign="['left','left','left','left','left','left']">
-                                                <a class="checkout_btn" href="#">shop now</a>
+                                                <a class="checkout_btn" href="{{ $slide->url }}">shop now</a>
                                             </div>
                                         </div>
                                     </li>
-                                    <li data-index="rs-1588" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="img/home-slider/slider-2.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Creative" data-param1="01" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                                        <!-- MAIN IMAGE -->
-                                        <img src="{{ asset('design/front') }}/img/home-slider/slider-2.jpg"  alt="" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="5" class="rev-slidebg" data-no-retina>
-                                        <!-- LAYERS -->
-                                        <!-- LAYERS -->
-
-                                        <!-- LAYER NR. 1 -->
-                                        <div class="slider_text_box first_text">
-                                            <div class="tp-caption tp-resizeme first_text"
-                                            data-x="['left','left','left','left','left','left']"
-                                            data-hoffset="['60','60','60','60','20','0']"
-                                            data-y="['top','top','top','top','top','top']"
-                                            data-voffset="['70','70','70','70','70','70']"
-                                            data-fontsize="['48','48','48','48','48','48']"
-                                            data-lineheight="['56','56','56','56','56','48']"
-                                            data-width="['none','none','none','none','none']"
-                                            data-height="none"
-                                            data-whitespace="nowrap"
-                                            data-type="text"
-                                            data-responsive_offset="on"
-                                            data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:0px;s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
-                                            data-textAlign="['left','left','left','left','left','left']"
-                                            >Best Winter <br> Collection</div>
-
-                                            <div class="tp-caption tp-resizeme secand_text"
-                                                data-x="['left','left','left','left','left','left']"
-                                                data-hoffset="['60','60','60','60','20','0']"
-                                                data-y="['top','top','top','top']" data-voffset="['190','190','190','190','190','190']"
-                                                data-fontsize="['14','14','14','14','14','14']"
-                                                data-lineheight="['24','24','24','24','24']"
-                                                data-width="['300','300','300','300','300']"
-                                                data-height="none"
-                                                data-whitespace="normal"
-                                                data-type="text"
-                                                data-responsive_offset="on"
-                                                data-transform_idle="o:1;"
-                                                data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
-                                                data-textAlign="['left','left','left','left','left','left']"
-                                                >There is no one who loves to be bread, who looks after it and wants to have it, simply because it is pain.
-                                            </div>
-
-                                            <div class="tp-caption tp-resizeme third_btn"
-                                                data-x="['left','left','left','left','left','left']"
-                                                data-hoffset="['60','60','60','60','20','0']"
-                                                data-y="['top','top','top','top']" data-voffset="['290','290','290','290','290','290']"
-                                                data-width="none"
-                                                data-height="none"
-                                                data-whitespace="nowrap"
-                                                data-type="text"
-                                                data-responsive_offset="on"
-                                                data-frames="[{&quot;delay&quot;:10,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;0&quot;,&quot;from&quot;:&quot;y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;&quot;,&quot;mask&quot;:&quot;x:0px;y:[100%];s:inherit;e:inherit;&quot;,&quot;to&quot;:&quot;o:1;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;},{&quot;delay&quot;:&quot;wait&quot;,&quot;speed&quot;:1500,&quot;frame&quot;:&quot;999&quot;,&quot;to&quot;:&quot;y:[175%];&quot;,&quot;mask&quot;:&quot;x:inherit;y:inherit;s:inherit;e:inherit;&quot;,&quot;ease&quot;:&quot;Power2.easeInOut&quot;}]"
-                                                data-textAlign="['left','left','left','left','left','left']">
-                                                <a class="checkout_btn" href="#">shop now</a>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -313,14 +259,9 @@
                                 <h3>categories</h3>
                             </div>
                             <ul>
-                                <li><a href="#">Men</a></li>
-                                <li><a href="#">Women</a></li>
-                                <li><a href="#">jewelry</a></li>
-                                <li><a href="#">Accessories</a></li>
-                                <li><a href="#">appliances</a></li>
-                                <li><a href="#">beauty & personal care</a></li>
-                                <li><a href="#">gift card</a></li>
-                                <li><a href="#">Lookbook</a></li>
+                                @foreach ($categories as $category)
+                                <li><a href="{{ url('/'.$category->categ_name_en) }}">{{ $category->categ_name_en }}</a></li>
+                                @endforeach
                             </ul>
                         </aside>
                         <aside class="l_widget l_supper_widget">

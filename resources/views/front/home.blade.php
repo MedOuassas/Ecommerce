@@ -217,36 +217,18 @@
                         <div class="home_sidebar_blog">
                             <h3 class="single_title">From The Blog</h3>
                             <div class="row">
+                                @foreach ($posts as $post)
                                 <div class="col-lg-4 col-sm-6">
                                     <div class="from_blog_item">
-                                        <img class="img-fluid" src="{{ asset('design/front') }}/img/blog/from-blog/f-blog-4.jpg" alt="">
+                                        <img class="img-fluid" src="{{ url('storage/'.$post->photo) }}" alt="">
                                         <div class="f_blog_text">
-                                            <h5>fashion</h5>
-                                            <p>Neque porro quisquam est qui dolorem ipsum</p>
-                                            <h6>21.09.2017</h6>
+                                            <h5>{{ $post->title }}</h5>
+                                            <p>{{ str_limit($post->description, 45) }}</p>
+                                            <h6>{{ $post->date }}</h6>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="from_blog_item">
-                                        <img class="img-fluid" src="{{ asset('design/front') }}/img/blog/from-blog/f-blog-5.jpg" alt="">
-                                        <div class="f_blog_text">
-                                            <h5>fashion</h5>
-                                            <p>Neque porro quisquam est qui dolorem ipsum</p>
-                                            <h6>21.09.2017</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-sm-6">
-                                    <div class="from_blog_item">
-                                        <img class="img-fluid" src="{{ asset('design/front') }}/img/blog/from-blog/f-blog-6.jpg" alt="">
-                                        <div class="f_blog_text">
-                                            <h5>fashion</h5>
-                                            <p>Neque porro quisquam est qui dolorem ipsum</p>
-                                            <h6>21.09.2017</h6>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
 

@@ -17,7 +17,7 @@ class HomeController extends Controller
         $categories = Category::where('parent', null)->limit(8)->get();
         $slides = Slide::where('status', 'active')->get();
         $products = Product::where('status', 'active')->get();
-        $posts = Post::where('status', 'active')->where('date', '>=', \Carbon\Carbon::now())->get();
+        $posts = Post::where('status', 'active')->limit(3)->get();//->where('date', '>=', \Carbon\Carbon::now())
         //return ['categories' => $categories, 'slides' => $slides, 'products' => $products, 'posts' => $posts];
         return view('front.home', ['categories' => $categories, 'slides' => $slides, 'products' => $products, 'posts' => $posts]);
     }

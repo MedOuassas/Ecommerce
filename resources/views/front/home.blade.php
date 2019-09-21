@@ -117,10 +117,12 @@
                                 <li data-filter=".bags"><a href="#">Bags</a></li>
                             </ul>
                             <div class="home_l_product_slider owl-carousel">
-                                <div class="item woman shoes">
-                                    <div class="l_product_item">
+                                @foreach ($categories_top as $key => $category)
+                                <div class="item {{$category}} woman shoes">
+                                    @foreach ($products as $product)
+                                    <div class="l_product_item woman bags">
                                         <div class="l_p_img">
-                                            <img src="{{ asset('design/front') }}/img/product/fillter-product/f-product-8.jpg" alt="">
+                                            <img src="{{ asset('storage/'.$product['photo']) }}" alt="{{$product['title']}}">
                                             <h5 class="sale">Sale</h5>
                                         </div>
                                         <div class="l_p_text">
@@ -129,26 +131,13 @@
                                                 <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
                                                 <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
                                             </ul>
-                                            <h4>Womens Libero</h4>
-                                            <h5><del>$45.50</del>  $40</h5>
+                                            <h4>{{$product['title']}}</h4>
+                                            <h5><del>{{$product['price']}}</del>  {{$product['price_offre']}}</h5>
                                         </div>
                                     </div>
-                                    <div class="l_product_item woman bags">
-                                        <div class="l_p_img">
-                                            <img src="{{ asset('design/front') }}/img/product/fillter-product/f-product-11.jpg" alt="">
-                                            <h5 class="new">New</h5>
-                                        </div>
-                                        <div class="l_p_text">
-                                            <ul>
-                                                <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
-                                                <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
-                                                <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
-                                            </ul>
-                                            <h4>Oxford Shirt</h4>
-                                            <h5>$85.50</h5>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
+                                @endforeach
                                 <div class="item woman bags">
                                     <div class="l_product_item">
                                         <div class="l_p_img">

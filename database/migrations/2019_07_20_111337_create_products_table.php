@@ -36,8 +36,8 @@ class CreateProductsTable extends Migration
             $table->integer('currency_id')->unsigned()->nullable();
             $table->foreign('currency_id')->references('id')->on('countries')->onDelete('cascade');
             $table->integer('stock')->default(0);
-            $table->decimal('price', 5, 2)->default(0);
-            $table->decimal('price_offre', 5, 2)->default(0);
+            $table->decimal('price', 7, 2)->default(0);
+            $table->decimal('price_offre', 7, 2)->default(0);
             $table->date('offre_start_at')->nullable();
             $table->date('offre_end_at')->nullable();
             $table->enum('status',['active', 'inactive'])->default('inactive');

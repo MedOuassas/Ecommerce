@@ -111,19 +111,19 @@
                     </div>
                     <div class="fillter_home_sidebar">
                         <ul class="portfolio_filter">
-                            <li class="active" data-filter="*"><a href="#">men's</a></li>
+                            <li class="active" data-filter="*"><a href="#">All</a></li>
                             @foreach ($arr_cats as $kc => $cat_id)
                                 @foreach ($categoriest->where('id',$cat_id)->take(4) as $category)
-                                <li data-filter=".{{$category->categ_name_en}}"><a href="#">{{$category->categ_name_en}}</a></li>
+                                <li data-filter=".{{slugify($category->categ_name_en)}}"><a href="#">{{$category->categ_name_en}}</a></li>
                                 @endforeach
                             @endforeach
                         </ul>
                         <div class="home_l_product_slider owl-carousel">
                             @foreach ($arr_cats as $kc => $cat_id)
                             @foreach ($categoriest->where('id',$cat_id)->take(4) as $category)
-                            <div class="item {{$category->categ_name_en}}">
+                            <div class="item {{slugify($category->categ_name_en)}}">
                                 @foreach ($products->where('category_id',$category->id)->take(2) as $product)
-                                <div class="l_product_item {{$product->category}}">
+                                <div class="l_product_item">
                                     <div class="l_p_img">
                                         <img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}">
                                         <h5 class="sale">Sale</h5>
@@ -197,7 +197,7 @@
                                 <li>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}" style="width:100px">
+                                            <img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}" style="width:100px;max-height:70px">
                                         </div>
                                         <div class="media-body">
                                             <h4>{{$product->title}}</h4>

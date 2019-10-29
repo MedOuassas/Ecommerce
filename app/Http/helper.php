@@ -7,6 +7,34 @@ if(!function_exists('aurl')){
     }
 }
 
+if(!function_exists('slugify')){
+    function slugify($str=null)
+    {
+        // replace non letter or digits by -
+        $str = preg_replace('~[^\pL\d]+~u', '-', $str);
+        // transliterate
+        $str = iconv('utf-8', 'us-ascii//TRANSLIT', $str);
+
+        // remove unwanted characters
+        $str = preg_replace('~[^-\w]+~', '', $str);
+
+        // trim
+        $str = trim($str, '-');
+
+        // remove duplicate -
+        $str = preg_replace('~-+~', '-', $str);
+
+        // lowercase
+        $str = strtolower($str);
+
+        if (empty($str)) {
+            return 'n-a';
+        }
+
+        return $str;
+    }
+}
+
 //get category and category parent
 if(!function_exists('get_category')){
     function get_category($cat_id)

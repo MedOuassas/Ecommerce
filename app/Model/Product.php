@@ -27,6 +27,8 @@ class Product extends Model
         'offre_start_at',
         'offre_end_at',
         'status',
+        'favored',
+        'slug',
         'other_info'
     ];
 

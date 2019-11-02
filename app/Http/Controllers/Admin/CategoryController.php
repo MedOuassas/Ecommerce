@@ -60,7 +60,9 @@ class CategoryController extends Controller
                 'delete_file'   =>''
             ]);
         }
-        
+
+        !empty($data['categ_name_en'])?$data['slug'] = slugify($data['categ_name_en']):$data['slug'] = '';
+
         Category::create($data);
         session()->flash('success', trans('admin.record_added'));
 
@@ -123,7 +125,8 @@ class CategoryController extends Controller
                 'delete_file'   =>Category::find($id)->photo
             ]);
         }
-        
+        !empty($data['categ_name_en'])?$data['slug'] = slugify($data['categ_name_en']):$data['slug'] = '';
+
         Category::where('id', $id)->update($data);
         session()->flash('success', trans('admin.record_edited'));
 
@@ -150,7 +153,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Self::delete_category($id);
-        
+
         $category = Category::find($id);
         if(!empty($category->photo)){
             Storage::has($category->photo)?Storage::delete($category->photo):'';

@@ -21,10 +21,12 @@ class ProductsDatatable extends DataTable
             ->addColumn('action', 'admin.products.btn.action')
             ->addColumn('checkbox', 'admin.products.btn.checkbox')
             ->addColumn('status', 'admin.products.btn.status')
+            ->addColumn('favored', 'admin.products.btn.favored')
             ->rawColumns([
                 'action',
                 'checkbox',
-                'status'
+                'status',
+                'favored'
             ]);
     }
 
@@ -117,6 +119,14 @@ class ProductsDatatable extends DataTable
                 'name' => 'status',
                 'data' => 'status',
                 'title' => 'Status',
+                'exportable' => false,
+                'searchable' => false,
+                'orderable' => true,
+                'printable' => true,
+            ], [
+                'name' => 'favored',
+                'data' => 'favored',
+                'title' => 'Favored',
                 'exportable' => false,
                 'searchable' => false,
                 'orderable' => true,

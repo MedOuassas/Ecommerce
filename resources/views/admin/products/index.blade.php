@@ -73,6 +73,28 @@
                 }
             });
         });
+
+        $(document).on('click', '.btn_fav', function (e) {
+            e.preventDefault();
+            var $this = this,
+                product_id = $($this).data('id');
+                var favored = '';
+                $($this).hasClass('btn-success') ? favored = '1' : favored = '0';
+            $.ajax({
+                url: '{{ aurl("product/change-favored") }}',
+                dataType: 'json',
+                type: 'post',
+                data: {_token:'{{csrf_token()}}', prod_id: product_id, prod_fav: favored },
+                success: function (data) {
+                    $($this).attr('data-fav', data.favored);
+                    if(data.favored === '1'){
+                        $($this).removeClass('btn-danger').addClass('btn-success');
+                    } else {
+                        $($this).removeClass('btn-success').addClass('btn-primary');
+                    }
+                }
+            });
+        });
     });
 </script>
 @endpush

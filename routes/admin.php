@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::post('delete/product/image/{pid}', 'ProductsController@delete_product_photo');
         Route::post('product/load/weight-size', 'ProductsController@load_weight_size');
         Route::post('product/change-status', 'ProductsController@change_status');
+        Route::post('product/change-favored', 'ProductsController@change_favored');
 
         Route::resource('slides', 'SlidesController');
         Route::delete('slides/destroy/all', 'SlidesController@multi_delete');

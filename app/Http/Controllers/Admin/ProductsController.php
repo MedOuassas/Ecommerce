@@ -119,6 +119,21 @@ class ProductsController extends Controller
         }
     }
 
+    public function change_favored()
+    {
+        if(request()->ajax() and request()->has('prod_fav')) {
+            $id = request()->get('prod_id');
+            if(request()->get('prod_fav') == '1'){
+                Product::where('id', $id)->update(['favored' => '0']);
+                $favored = '0';
+            } else {
+                Product::where('id', $id)->update(['favored' => '1']);
+                $favored = '1';
+            }
+            return json_encode(['favored'=>$favored]);
+        }
+    }
+
     public function delete_product_photo($id)
     {
         $product = Product::find($id);
@@ -172,6 +187,7 @@ class ProductsController extends Controller
                 'offre_start_at'    => 'sometimes|nullable|date',
                 'offre_end_at'      => 'sometimes|nullable|date',
                 'status'            => 'required|in:inactive,active',
+                'favored'           => 'required|in:0,1',
                 'size'              => 'sometimes|nullable|numeric',
                 'size_id'           => 'sometimes|nullable|numeric',
                 'weight'            => 'required|numeric',
@@ -190,6 +206,7 @@ class ProductsController extends Controller
                 'offre_start_at'    => trans('admin.offre_start_at'),
                 'offre_end_at'      => trans('admin.offre_end_at'),
                 'status'            => trans('admin.status'),
+                'favored'           => trans('admin.favored'),
                 'size'              => trans('admin.size'),
                 'size_id'           => trans('admin.size_name'),
                 'weight'            => trans('admin.weight'),
@@ -199,6 +216,7 @@ class ProductsController extends Controller
                 'maker_id'          => trans('admin.maker_id'),
             ]
         );
+        !empty($data['title'])?$data['slug'] = slugify($data['title']):$data['slug'] = '';
         Product::where('id', $id)->update($data);
         session()->flash('success', trans('admin.record_edited'));
 

@@ -13,7 +13,8 @@ class Category extends Model
         'photo',
         'description',
         'keywords',
-        'parent'
+        'parent',
+        'slug'
     ];
 
     public function parent() {

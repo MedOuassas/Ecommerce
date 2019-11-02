@@ -41,6 +41,8 @@ class CreateProductsTable extends Migration
             $table->date('offre_start_at')->nullable();
             $table->date('offre_end_at')->nullable();
             $table->enum('status',['active', 'inactive'])->default('inactive');
+            $table->enum('favored',['1', '0'])->default('0');
+            $table->string('slug')->nullable();
             $table->longtext('other_info')->nullable();
             $table->timestamps();
         });

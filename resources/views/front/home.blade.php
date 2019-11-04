@@ -125,12 +125,12 @@
                                 @foreach ($products->where('category_id',$category->id)->take(2) as $product)
                                 <div class="l_product_item">
                                     <div class="l_p_img">
-                                        <img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}">
+                                        <a href="{{url('/'.$product->slug.'.html')}}"><img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}"></a>
                                         <h5 class="sale">Sale</h5>
                                     </div>
                                     <div class="l_p_text">
                                         <ul>
-                                            <li class="p_icon"><a href="#"><i class="icon_piechart"></i></a></li>
+                                            <li class="p_icon"><a href="{{url('/'.$product->slug.'.html')}}"><i class="icon_piechart"></i></a></li>
                                             <li><a class="add_cart_btn" href="#">Add To Cart</a></li>
                                             <li class="p_icon"><a href="#"><i class="icon_heart_alt"></i></a></li>
                                         </ul>

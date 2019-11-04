@@ -22,7 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->string('keywords')->nullable();
             $table->integer('parent')->unsigned()->nullable();
             $table->foreign('parent')->references('id')->on('categories')->onDelete('cascade');
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->timestamps();
         });
     }

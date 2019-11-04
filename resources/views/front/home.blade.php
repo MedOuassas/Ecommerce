@@ -173,7 +173,7 @@
                         </div>
                         <ul>
                             @foreach ($categories as $category)
-                            <li><a href="{{ url('/'.$category->categ_name_en) }}">{{ $category->categ_name_en }}</a></li>
+                            <li><a href="{{ url('/'.$category->slug.'.html') }}">{{ $category->categ_name_en }}</a></li>
                             @endforeach
                         </ul>
                     </aside>

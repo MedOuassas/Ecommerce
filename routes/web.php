@@ -14,6 +14,7 @@
 Route::group(['prefix' => '', 'namespace' => 'Front'], function () {
 
     Route::get('/', 'HomeController@index');
+    Route::get('/{slug}.html', 'CategoryController@index');
 
 });
 Route::get('lang/{lang}', function($lang) {

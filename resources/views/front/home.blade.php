@@ -197,26 +197,15 @@
                                 <li>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}" style="width:100px;max-height:70px">
+                                            <a href="{{ url('/'.$product->slug) }}"><img src="{{ asset('storage/'.$product->photo) }}" alt="{{$product->title}}" style="width:100px;max-height:70px"></a>
                                         </div>
                                         <div class="media-body">
-                                            <h4>{{$product->title}}</h4>
+                                            <h4>{{ $product->title }}</h4>
                                             <h5>${{$product->price}}</h5>
                                         </div>
                                     </div>
                                 </li>
                                 @endforeach
-                                <li>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="{{ asset('design/front') }}/img/product/featured-product/f-p-2.jpg" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <h4>Puffer Jacket</h4>
-                                            <h5>$45.05</h5>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </aside>

@@ -177,7 +177,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validate(request(), [
-                'title'             => 'required',
+                'title'             => 'required|unique:products',
                 'description'       => 'required',
                 'content'           => 'required',
                 'category_id'       => 'required|numeric',

@@ -170,6 +170,6 @@ class SlidesController extends Controller
         }
         session()->flash('success', trans('admin.records_deleted'));
 
-        return redirect(aurl('states'));
+        return redirect(aurl('slides'));
     }
 }

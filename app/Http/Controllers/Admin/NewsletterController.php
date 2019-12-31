@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
-use App\Model\Newsletter;
+use App\Http\Controllers\Controller;
+use App\DataTables\NewslettersDatatable;
 use Illuminate\Http\Request;
+use App\Model\Newsletter;
 
 class NewsletterController extends Controller
 {
@@ -12,7 +13,7 @@ class NewsletterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(NewslettersDatatable $newsletters)
     {
         return $newsletters->render('admin.newsletters.index', ['title'=> trans('admin.newsletters')]);
     }
@@ -81,13 +82,10 @@ class NewsletterController extends Controller
     public function destroy($id)
     {
         $newsletter = Newsletter::find($id);
-        if(!empty($newsletter->photo)){
-            Storage::has($newsletter->photo)?Storage::delete($newsletter->photo):'';
-        }
         $newsletter->delete();
 
         session()->flash('success', trans('admin.record_deleted'));
-        return redirect(aurl('slides'));
+        return redirect(aurl('newsletters'));
     }
 
     public function multi_delete() {
@@ -98,6 +96,6 @@ class NewsletterController extends Controller
         }
         session()->flash('success', trans('admin.records_deleted'));
 
-        return redirect(aurl('states'));
+        return redirect(aurl('newsletters'));
     }
 }

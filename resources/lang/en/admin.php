@@ -157,4 +157,6 @@ return[
     'post' => 'Post',
     'posts' => 'Posts',
     'url' => 'Url',
+    'newsletter' => 'newsletter',
+    'newsletters' => 'Newsletters',
 ];

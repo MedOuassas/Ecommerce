@@ -64,6 +64,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::delete('posts/destroy/all', 'PostsController@multi_delete');
         Route::post('posts/change-status', 'PostsController@change_status');
 
+        Route::resource('newsletters', 'NewsletterController');
+        Route::delete('newsletters/destroy/all', 'NewsletterController@multi_delete');
+
         Route::get('/', function () {
             return view('admin.home');
         });

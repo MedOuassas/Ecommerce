@@ -6,7 +6,7 @@ use App\Model\Newsletter;
 use Yajra\DataTables\Services\DataTable;
 //use Up;
 
-class NewsletterDatatable extends DataTable
+class NewslettersDatatable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -56,7 +56,7 @@ class NewsletterDatatable extends DataTable
                             ['extend' => 'excel', 'className' => 'btn btn-success', 'text' => '<i class="fa fa-file-excel-o"></i> '.trans('admin.ex_excel')],
                             ['extend' => 'csv', 'className' => 'btn btn-primary margin', 'text' => '<i class="fa fa-file-excel-o"></i> '.trans('admin.ex_csv')],
                             ['extend' => 'reload', 'className' => 'btn btn-default', 'text' => '<i class="fa fa-refresh"></i> '.trans('admin.reload')],
-                            ['className' => 'btn btn-danger btn-deleteall', 'text' => '<i class="fa fa-trash"></i> '.trans('admin.delete')],
+                            ['className' => 'btn btn-danger btn-deleteall margin', 'text' => '<i class="fa fa-trash"></i> '.trans('admin.delete')],
                         ],
                         'initComplete' => "function () {
                             this.api().columns([ 2,3 ]).every(function () {
@@ -92,10 +92,6 @@ class NewsletterDatatable extends DataTable
                 'name' => 'id',
                 'data' => 'id',
                 'title' => 'ID'
-            ], [
-                'name' => 'name',
-                'data' => 'name',
-                'title' => 'Name'
             ], [
                 'name' => 'email',
                 'data' => 'email',

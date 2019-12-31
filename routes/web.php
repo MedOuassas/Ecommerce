@@ -14,6 +14,7 @@
 Route::group(['prefix' => '', 'namespace' => 'Front'], function () {
 
     Route::get('/', 'HomeController@index');
+    Route::post('/subscribe', 'HomeController@subscribe');
     Route::get('/{slug}.html', 'CategoryController@index');
 
 });

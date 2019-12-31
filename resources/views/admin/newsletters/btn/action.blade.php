@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <div class="alert alert-danger">
-                <h3>{{ trans('admin.delete_this', ['name'=> $title]) }} ?</h3>
+                <h3>{{ trans('admin.delete_this', ['name'=> $email]) }} ?</h3>
             </div>
         </div>
         <div class="modal-footer">

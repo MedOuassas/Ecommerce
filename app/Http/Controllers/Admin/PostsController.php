@@ -38,7 +38,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate(request(), [
-                'title'         => 'required',
+                'title'         => 'required|unique:posts',
                 'description'   => 'required',
                 'content'       => 'required',
                 'category'      => 'sometimes|nullable',
@@ -121,7 +121,7 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $this->validate(request(), [
-                'title'         => 'required',
+                'title'         => 'required|unique:posts',
                 'description'   => 'required',
                 'content'       => 'required',
                 'category'      => 'sometimes|nullable',
@@ -181,6 +181,6 @@ class PostsController extends Controller
         }
         session()->flash('success', trans('admin.records_deleted'));
 
-        return redirect(aurl('states'));
+        return redirect(aurl('posts'));
     }
 }

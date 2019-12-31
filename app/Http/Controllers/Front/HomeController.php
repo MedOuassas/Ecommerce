@@ -8,6 +8,7 @@ use App\Model\Category;
 use App\Model\Product;
 use App\Model\Slide;
 use App\Model\Post;
+use App\Model\Newsletter;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,25 @@ class HomeController extends Controller
 
         $posts = Post::where('status', 'active')->limit(3)->get();//->where('date', '>=', \Carbon\Carbon::now())
         return view('front.home', ['categories' => $categories, 'arr_cats' => $arr_cats_id, 'categoriest' => $categoriest, 'slides' => $slides, 'products' => $products, 'posts' => $posts]);
+    }
+
+    public function subscribe()
+    {
+        if(request()->ajax() and request()->has('subscribe')) {
+            $data = $this->validate(request(), [
+                    'name'  => 'sometimes|nullable',
+                    'email' => 'required|email|unique:newsletters',
+                ], [], [
+                    'name'  => trans('admin.name'),
+                    'email' => trans('admin.email'),
+                ]
+            );
+
+            Newsletter::create($data);
+
+            return json_encode(['success'=>'Your email has been successfully added.']);
+
+        }
     }
 
 }

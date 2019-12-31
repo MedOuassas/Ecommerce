@@ -212,12 +212,15 @@
                     <aside class="l_widget l_news_widget">
                         <h3>newsletter</h3>
                         <p>Sign up for our Newsletter !</p>
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="yourmail@domain.com" aria-label="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary subs_btn" type="button">Subscribe</button>
-                            </span>
-                        </div>
+                        <div class="suscribe_response"></div>
+                        <form class="widget_newsletter" action="" method="POST">
+                            <div class="input-group">
+                                <input type="email" name="email" class="form-control" placeholder="yourmail@domain.com" aria-label="Search for..." required>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary subs_btn" type="button">Subscribe</button>
+                                </span>
+                            </div>
+                        </form>
                     </aside>
                     <aside class="l_widget l_hot_widget">
                         <h3>Summer Hot Sale</h3>
@@ -232,4 +235,48 @@
 <!--================End Main Content Area =================-->
 
 
+@endsection
+@section('script')
+    <script>
+        $(function(){
+            $(document).on('click', '.subs_btn', function (e) {
+                e.preventDefault();
+                var nemail = $('.widget_newsletter').find('input[name="email"]').val();
+
+                if(nemail!=='') {
+                    $.ajax({
+                        url: '{{ url("/subscribe") }}',
+                        dataType: 'json',
+                        type: 'post',
+                        data: {_token:'{{csrf_token()}}', subscribe: true, email: nemail },
+                        success: function (data) {
+                            var msg_success = data.success;
+                            $('.suscribe_response').html('<div class="alert alert-success">'+msg_success+'</div>');
+                            $('.widget_newsletter').find('input[name="email"]').val('');
+                        },
+                        error: function (data) {
+                            var errors = data.responseJSON.errors;
+                            if( data.status === 422 ) {
+                                errorsHtml = '<div class="alert alert-danger"><ul>';
+
+                                $.each( errors, function( key, value ) {
+                                    errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+                                });
+                                errorsHtml += '</ul></di>';
+
+                                $('.suscribe_response').html(errorsHtml);
+                            } else {
+                                alert('Error !: '+ data);
+                            }
+                        },
+                        fail: function () {
+                            alert('The request failed!');
+                        }
+                    });
+                } else {
+                    alert("Insert an email!");
+                }
+            });
+        });
+    </script>
 @endsection

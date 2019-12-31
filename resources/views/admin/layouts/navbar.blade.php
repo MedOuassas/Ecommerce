@@ -238,6 +238,18 @@
             <li><a href="{{ aurl('products/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
           </ul>
         </li>
+        </li>
+        <li class="treeview {{ active_menu('newsletter')[0] }}">
+          <a href="#">
+            <i class="fa fa-modx"></i> <span>{{ trans('admin.newsletter')}}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu" style="{{ active_menu('newsletter')[2] }}">
+            <li class="{{ active_menu('newsletter')[1] }}"><a href="{{ aurl('newsletters') }}"><i class="fa fa-circle-o"></i>{{ trans('admin.newsletter')}}</a></li>
+          </ul>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->

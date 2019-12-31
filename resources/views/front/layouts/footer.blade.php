@@ -146,6 +146,6 @@
         <script src="{{ asset('design/front') }}/js/jQuery.verticalCarousel.js"></script>
         <script src="{{ asset('design/front') }}/js/jquery-ui.js"></script>
         <script src="{{ asset('design/front') }}/js/theme.js"></script>
-        @yield('jscript')
+        @yield('script')
     </body>
 </html>

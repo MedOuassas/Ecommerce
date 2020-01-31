@@ -262,7 +262,7 @@
                                 $.each( errors, function( key, value ) {
                                     errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
                                 });
-                                errorsHtml += '</ul></di>';
+                                errorsHtml += '</ul></div>';
 
                                 $('.suscribe_response').html(errorsHtml);
                             } else {

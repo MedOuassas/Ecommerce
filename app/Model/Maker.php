@@ -20,4 +20,10 @@ class Maker extends Model
         'lng',
         'logo'
     ];
+    
+    public function products()
+    {
+        return $this->hasMany('App\Model\Product', 'maker_id', 'id');
+    }
+
 }

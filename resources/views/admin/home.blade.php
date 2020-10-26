@@ -347,7 +347,7 @@
               </h3>
             </div>
             <div class="box-body">
-              <div id="world-map" style="height: 250px; width: 100%;"></div>
+              <div id="world-map" style="height: 250px; width: 100%; overflow: hidden"></div>
             </div>
             <!-- /.box-body-->
             <div class="box-footer no-border">

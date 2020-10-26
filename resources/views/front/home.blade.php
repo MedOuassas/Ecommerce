@@ -10,13 +10,13 @@
             <div class="col-lg-9 float-md-right">
                 <div class="sidebar_main_content_area">
                     <div class="advanced_search_area">
-                        <select class="selectpicker">
+                        <select class="selectpicker" name="search_cat">
                             @foreach ($categoriest as $cat)
                             <option value="{{$cat->id}}">{{$cat->categ_name_en}}</option>
                             @endforeach
                         </select>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                            <input type="text" class="form-control" name="search_key" placeholder="Search" aria-label="Search">
                             <span class="input-group-btn">
                                 <button class="btn btn-secondary" type="button"><i class="icon-magnifier icons"></i></button>
                             </span>

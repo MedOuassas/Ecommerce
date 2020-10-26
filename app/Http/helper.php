@@ -48,6 +48,25 @@ if(!function_exists('get_category')){
     }
 }
 
+//get category and category parent
+if(!function_exists('get_category_child')){
+    function get_category_child($cat_id)
+    {
+        $arr_cat = $cat_id;
+        $category = \App\Model\Category::find($cat_id);
+        $category_childs = \App\Model\Category::Where('parent',$cat_id)->get();
+        if($category_childs) {
+            foreach ($category_childs as $category_child) {
+                $arr_cat .= "," . get_category_child($category_child->id) ;
+            }
+        } else {
+            return $arr_cat;
+        }
+
+        return $arr_cat;
+    }
+}
+
 if(!function_exists('load_category')){
     function load_category($select = null, $categ_selected = null)
     {

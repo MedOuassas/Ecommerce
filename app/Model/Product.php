@@ -42,4 +42,9 @@ class Product extends Model
         return $this->hasOne('App\Model\Category', 'id', 'category_id');
     }
 
+    public function maker()
+    {
+        return $this->hasOne('App\Model\Maker', 'id', 'maker_id');
+    }
+
 }

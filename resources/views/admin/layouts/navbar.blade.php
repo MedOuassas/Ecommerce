@@ -238,7 +238,6 @@
             <li><a href="{{ aurl('products/create') }}"><i class="fa fa-plus"></i>{{ trans('admin.add')}}</a></li>
           </ul>
         </li>
-        </li>
         <li class="treeview {{ active_menu('newsletter')[0] }}">
           <a href="#">
             <i class="fa fa-modx"></i> <span>{{ trans('admin.newsletter')}}</span>

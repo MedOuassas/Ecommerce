@@ -1,5 +1,5 @@
 @include('admin.layouts.header')
-<div class="wrapper">
+<div class="wrapper" style="overflow-y: hidden">
 
     @include('admin.layouts.navbar')
 

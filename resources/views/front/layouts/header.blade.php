@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ setting()->sitename_en }} Demo</title>
-        <meta name="description" content="{{ setting()->description }}">
-        <meta name="keywords" content="{{ setting()->keywords }}">
+        <title>{{ setting()->sitename_en }} Demo {{ isset($title)? '| '.$title : '' }}</title>
+        <meta name="description" content="{{ isset($description)? $description : setting()->description }}">
+        <meta name="keywords" content="{{ isset($keywords)? $keywords : setting()->keywords }}">
         <link rel="shortcut icon" href="{{ Storage::url(setting()->icon) }}" type="image/x-icon">
 
         <!-- Icon css link -->

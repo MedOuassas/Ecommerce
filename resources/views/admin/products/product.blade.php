@@ -14,6 +14,7 @@
                 <a href="{{ aurl('products') }}" class="btn btn-info">{{ trans('admin.save_continue') }}</a>
                 <a href="{{ aurl('products') }}" class="btn btn-default">{{ trans('admin.clone_product') }}</a>
                 <a href="{{ aurl('products') }}" class="btn btn-danger">{{ trans('admin.delete') }}</a>
+                <a href="{{ aurl('products') }}" class="btn btn-danger">{{ trans('admin.cancel') }}</a>
 
                 <hr>
 
@@ -38,6 +39,7 @@
                 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success', 'type' => 'submit']) !!}
                 <a href="{{ aurl('products') }}" class="btn btn-default">{{ trans('admin.clone_product') }}</a>
                 <a href="{{ aurl('products/') }}" class="btn btn-danger">{{ trans('admin.delete') }}</a>
+                <a href="{{ aurl('products') }}" class="btn btn-danger">{{ trans('admin.cancel') }}</a>
                 {!! Form::close([]) !!}
             </div>
         </div>
